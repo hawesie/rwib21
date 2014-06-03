@@ -221,7 +221,7 @@ void B21Node::publishOdometry() {
     geometry_msgs::TransformStamped odom_trans;
     odom_trans.header.stamp = ros::Time::now();
     odom_trans.header.frame_id = "odom";
-    odom_trans.child_frame_id = "base";
+    odom_trans.child_frame_id = "base_link";
 
     odom_trans.transform.translation.x = x_odo;
     odom_trans.transform.translation.y = y_odo;
@@ -232,7 +232,7 @@ void B21Node::publishOdometry() {
 
     geometry_msgs::TransformStamped laser_trans;
     laser_trans.header.stamp = ros::Time::now();
-    laser_trans.header.frame_id = "base";
+    laser_trans.header.frame_id = "base_link";
     laser_trans.child_frame_id = "laser";
 
     laser_trans.transform.translation.z = 0.035;
@@ -252,7 +252,7 @@ void B21Node::publishOdometry() {
     odom.pose.pose.orientation = odom_quat;
 
     //set the velocity
-    odom.child_frame_id = "base";
+    odom.child_frame_id = "base_link";
     float tvel = driver.getTranslationalVelocity();
     odom.twist.twist.linear.x = tvel*cos(a_odo);
     odom.twist.twist.linear.y = tvel*sin(a_odo);
@@ -276,7 +276,7 @@ void B21Node::publishOdometry() {
 void B21Node::publishSonar() {
     sensor_msgs::PointCloud cloud;
     cloud.header.stamp = ros::Time::now();
-    cloud.header.frame_id = "base";
+    cloud.header.frame_id = "base_link";
 
     if (isSonarOn) {
         driver.getBaseSonarPoints(&cloud);
@@ -297,7 +297,7 @@ void B21Node::publishBumps() {
     sensor_msgs::PointCloud cloud1, cloud2;
     cloud1.header.stamp = ros::Time::now();
     cloud2.header.stamp = ros::Time::now();
-    cloud1.header.frame_id = "base";
+    cloud1.header.frame_id = "base_link";
     cloud2.header.frame_id = "body";
     int bumps = driver.getBaseBumps(&cloud1) +
                 driver.getBodyBumps(&cloud2);
