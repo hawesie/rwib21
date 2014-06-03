@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   sensor_msgs
   std_msgs
+  tf
 )
 
 ## System dependencies are found with CMake's conventions
@@ -111,16 +112,18 @@ add_library(b21_driver
 )
 
 ## Declare a cpp executable
-# add_executable(rflex_node src/rflex_node.cpp)
+add_executable(b21_node src/b21_node.cc)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(rflex_node rflex_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(rflex_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(
+   b21_node
+   ${catkin_LIBRARIES} 
+   rflex_driver b21_driver
+)
 
 #############
 ## Install ##

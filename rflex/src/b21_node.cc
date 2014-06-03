@@ -264,8 +264,8 @@ void B21Node::publishOdometry() {
     // finally, publish the joint state
     sensor_msgs::JointState joint_state;
     joint_state.header.stamp = ros::Time::now();
-    joint_state.set_name_size(1);
-    joint_state.set_position_size(1);
+    joint_state.name.resize(1);
+    joint_state.position.resize(1);
     joint_state.name[0] = "lewis_twist";
     joint_state.position[0] = true_bearing;
 
